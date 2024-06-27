@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 
-function Home(){
+function Home (){
+    const [loggedIn, setLoggedIn] = useState(false);
+
     return (
-        <>
-            <h1 className="titulo">Home</h1>
-            <img src="https://fazendoanossafesta.com.br/wp-content/uploads/2022/09/Flork-Professor-zueira-png.png" 
-            alt="Imagem Tela Inicial" className="img"/>
-        </>
+    <div>
+        {loggedIn ? (
+        <h1>Bem-vindo de volta!</h1>
+        ) : (
+        <button onClick={() => setLoggedIn(true)}>Entrar</button>
+        )}
+    </div>
     );
 }
 
