@@ -1,65 +1,67 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Dna } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContext';
+import Tema from '../../../models/Tema';
+import { buscar } from '../../../services/Service';
+import CardTemas from '../cardTemas/CardTemas';
 
 function ListaTemas() {
+const [temas, setTemas] = useState<Tema[]>([]);
 
-    const [temas, setTemas] = useState<Tema []> ([])
+const navigate = useNavigate();
 
-    const{usuario} = useContext(AuthContext);
-    const token = usuario.token;
+const { usuario, handleLogout } = useContext(AuthContext);
+const token = usuario.token;
 
-    const navigate = useNavigate()
-
-
-    useEffect(()=>{
-        if(token === '') {
-            alert('Faça o login')
-            navigate('/login')
-        }
-    }, [token])
-
-    async function BuscarTemas(){
-        try {
-            await buscar('/temas', setTemas, {
-                headers: {
-                    Authorization: token
-                }
-            })
-        }catch (error) {
-            alert('Tente novamente!')
-        }
+async function buscarTemas() {
+try {
+    await buscar('/temas', setTemas, {
+    headers: { Authorization: token },
+    });
+} catch (error: any) {
+    if (error.toString().includes('403')) {
+    alert('O token expirou, favor logar novamente')
+    handleLogout()
     }
-
-    useEffect(()=>{
-
-    },[])
-
-    return (
-        <>
-
-        <div className='container mx-auto bg-rose-800'>
-            <h1 className='text-center'> Meus temas</h1>
-        <div className='grid'>
-            <div className='border-2 border-lime-600 rouded'>
-            <h3 className='text-x1 font-semibold bg-rose-400 text-yellow-50'>Temas</h3>
-        <p>Descrição do temas</p>
-        <div className='flex'>
-            <button className='py-2 uppercase bg-rose-600 hover:bg-rose-600 w-full'>editar</button>
-            <button className='py-2 uppercase bg-red-500 hover:bg-rose-500 w-full'>deletar</button>
-        
-        <div className='grid '>
-            {temas}
-
-        </div>
-
-        </div>
-        </div>
-        
-        </div>
-
-        </div>
-        </>
-    )
+}
 }
 
-export default ListaTemas
+useEffect(() => {
+if (token === '') {
+    alert('Você precisa estar logado');
+    navigate('/login');
+}
+}, [token]);
+
+useEffect(() => {
+buscarTemas();
+}, [temas.length]);
+return (
+<>
+    {temas.length === 0 && (
+    <Dna
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="dna-loading"
+        wrapperStyle={{}}
+        wrapperClass="dna-wrapper mx-auto"
+    />
+    )}
+    <div className="flex justify-center w-full my-4">
+    <div className="container flex flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {temas.map((tema) => (
+            <>
+            <CardTemas key={tema.id} tema={tema} />
+            </>
+        ))}
+        </div>
+    </div>
+    </div>
+</>
+);
+}
+
+export default ListaTemas;
