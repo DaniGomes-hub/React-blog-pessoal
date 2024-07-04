@@ -1,8 +1,8 @@
 .fundoLogin {
-    background-color: slategray;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
+background-image: url(../../assets/LogoHome.png);
+background-repeat: round;
+min-height: 50vh;
+width: 50%;
+background-size: cover;
+background-position: center;
 }

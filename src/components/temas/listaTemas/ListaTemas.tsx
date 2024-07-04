@@ -5,6 +5,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import Tema from '../../../models/Tema';
 import { buscar } from '../../../services/Service';
 import CardTemas from '../cardTemas/CardTemas';
+import { toastAlerta } from '../../../utils/toastAlerta';
 
 function ListaTemas() {
 const [temas, setTemas] = useState<Tema[]>([]);
@@ -21,7 +22,7 @@ try {
     });
 } catch (error: any) {
     if (error.toString().includes('403')) {
-    alert('O token expirou, favor logar novamente')
+    toastAlerta('O token expirou, favor logar novamente')
     handleLogout()
     }
 }
@@ -29,7 +30,7 @@ try {
 
 useEffect(() => {
 if (token === '') {
-    alert('Você precisa estar logado');
+    toastAlerta('Você precisa estar logado');
     navigate('/login');
 }
 }, [token]);
