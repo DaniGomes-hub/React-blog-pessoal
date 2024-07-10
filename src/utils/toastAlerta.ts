@@ -12,7 +12,7 @@ case 'sucesso':
         draggable: true,
         progress: undefined,
         theme: "dark",
-        transition: Flip,
+        transition: undefined,
     });
     break;
 
@@ -26,7 +26,7 @@ case 'info':
         draggable: true,
         progress: undefined,
         theme: "dark",
-        transition: Flip,
+        transition:undefined,
     });
     break;
 
