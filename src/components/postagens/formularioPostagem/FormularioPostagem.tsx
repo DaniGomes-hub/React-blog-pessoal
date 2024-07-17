@@ -57,7 +57,7 @@ await buscar('/temas', setTemas, {
 
 useEffect(() => {
 if (token === '') {
-    toastAlerta('Você precisa estar logado pra isso');
+    toastAlerta('Você precisa estar logado pra isso', "erro");
     navigate('/');
 }
 }, [token]);
@@ -103,14 +103,14 @@ if (id != undefined) {
         Authorization: token,
         },
     });
-    toastAlerta('Postagem atualizada com sucesso');
+    toastAlerta('Postagem atualizada com sucesso', 'sucesso');
     retornar();
     } catch (error: any) {
     if (error.toString().includes('403')) {
-        toastAlerta('O token expirou, favor logar novamente')
+        toastAlerta('O token expirou, favor logar novamente', 'erro')
         handleLogout()
     } else {
-        toastAlerta('Erro ao atualizar a Postagem');
+        toastAlerta('Erro ao atualizar a Postagem', 'erro');
     }
     }
 } else {
@@ -121,14 +121,14 @@ if (id != undefined) {
         },
     });
 
-    toastAlerta('Arrastou! Postagem cadastrada com sucesso');
+    toastAlerta('Arrastou! Postagem cadastrada com sucesso', 'sucesso');
     retornar();
     } catch (error: any) {
     if (error.toString().includes('403')) {
-        toastAlerta('O token expirou, favor logar novamente')
+        toastAlerta('O token expirou, favor logar novamente', 'erro')
         handleLogout()
     } else {
-        toastAlerta('Erro ao cadastrar a Postagem, tente novamente...');
+        toastAlerta('Erro ao cadastrar a Postagem, tente novamente...', 'erro');
     }
     }
 }

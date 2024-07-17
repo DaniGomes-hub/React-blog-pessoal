@@ -55,10 +55,10 @@ try {
     }
     })
 
-    toastAlerta('Postagem apagada com sucesso')
+    toastAlerta('Postagem apagada com sucesso', 'sucesso')
 
 } catch (error) {
-    toastAlerta('Erro ao apagar a Postagem, tente novamente')
+    toastAlerta('Erro ao apagar a Postagem, tente novamente', 'erro')
 }
 
 retornar()

@@ -22,7 +22,7 @@ try {
     });
 } catch (error: any) {
     if (error.toString().includes('403')) {
-    toastAlerta('O token expirou, favor logar novamente')
+    toastAlerta('O token expirou, favor logar novamente', 'erro')
     handleLogout()
     }
 }
@@ -30,7 +30,7 @@ try {
 
 useEffect(() => {
 if (token === '') {
-    toastAlerta('Você precisa estar logado');
+    toastAlerta('Você precisa estar logado', 'erro');
     navigate('/login');
 }
 }, [token]);
